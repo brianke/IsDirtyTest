@@ -57,20 +57,29 @@ namespace CustomTabTest.Models
 
         #region Properties
 
-        //public String Header { get; set; }
-
-        private string _header;
         public string Header
         {
-            get { return _header; }
+            get { return _Header; }
             set
             {
-                _header = value;
+                _Header = value;
                 NotifyPropertyChanged(m => m.Header);
             }
         }
+        private string _Header;
 
-        public Boolean TabIsVisible { get; set; }
+        public Boolean TabIsVisible
+        {
+            get { return _TabIsVisible; }
+            set
+            {
+                _TabIsVisible = value;
+                NotifyPropertyChanged(m => m.TabIsVisible);
+            }
+        }
+        private Boolean _TabIsVisible = true;
+
+
         //public List<UtilitiesTask> TaskCollection { get; set; }
         public TaskCollection TaskCollection { get; set; }
 

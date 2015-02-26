@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
             <Label Content="Header:" Grid.Row="0" />
             <TextBox Grid.Row="0" Grid.Column="1" Height="30"
-                Text="{Binding Model.Header}" />
+                Text="{Binding Model.Header, UpdateSourceTrigger=PropertyChanged}" />
 
             <CheckBox Grid.Row="1" Grid.Column="1" Height="30"
                 Content="Tab Is Visible"
@@ -31,7 +31,7 @@
 
         </Grid>
 
-        <TextBlock Text="{Binding .IsDirty, StringFormat=IsDirty {0}, NotifyOnSourceUpdated=True}" 
+        <TextBlock Text="{Binding IsDirty, StringFormat=IsDirty {0}, NotifyOnSourceUpdated=True}" 
                    FontSize="20" FontWeight="Bold" 
                    HorizontalAlignment="Center" />
 

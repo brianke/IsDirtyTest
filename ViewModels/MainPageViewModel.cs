@@ -52,7 +52,7 @@ namespace CustomTabTest
             BeginEdit();
 
             // Associate Header with IsDirty
-            AssociateProperties(m => m.Header, vm => vm.IsDirty);
+            //AssociateProperties(m => m.Header, vm => vm.IsDirty);
 
             // Associate with IsDirtyInfo (debugging)
             //AssociateProperties(m => m.Header, vm => vm.IsDirtyInfo);
