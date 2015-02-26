@@ -10,6 +10,7 @@ using SimpleMvvmToolkit;
 using SimpleMvvmToolkit.ModelExtensions;
 using CustomTabTest.Models;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace CustomTabTest
 {
@@ -47,9 +48,26 @@ namespace CustomTabTest
 
             CustomTabCollection = _customTab;
 
-            this.Model = CustomTabCollection;
-            base.BeginEdit();
+            Model = CustomTabCollection;
+            BeginEdit();
+
+            // Associate Header with IsDirty
+            AssociateProperties(m => m.Header, vm => vm.IsDirty);
+
+            // Associate with IsDirtyInfo (debugging)
+            //AssociateProperties(m => m.Header, vm => vm.IsDirtyInfo);
+            
+            // Handle PropertyChanged event (debuggin)
+            //Model.PropertyChanged += OnModelPropertyChanged;
         }
+
+        //void OnModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    if (e.PropertyName == "Header")
+        //    {
+        //        NotifyPropertyChanged(m => m.IsDirtyInfo);
+        //    }
+        //}
 
         #endregion
 
@@ -65,25 +83,24 @@ namespace CustomTabTest
         // Add properties using the mvvmprop code snippet
         public CustomTab CustomTabCollection { get; set; }
 
-        private string bannerText = "Hello Simple MVVM Toolkit";
-        public string BannerText
-        {
-            get
-            {
-                return "Banner";
-            }
-            set
-            {
-                bannerText = value;
-                NotifyPropertyChanged(m => m.BannerText);
-            }
-        }
+        // Wrap IsDirty (debugging)
+        //public bool IsDirtyInfo
+        //{
+        //    get
+        //    {
+        //        return IsDirty;
+        //    }
+        //}
 
         #endregion
 
         #region Methods
 
-        // TODO: Add methods that will be called by the view
+        // Manually fire property changed (debugging)
+        //public void FirePropertyChanged()
+        //{
+        //    NotifyPropertyChanged(m => m.IsDirtyInfo);
+        //}
 
         #endregion
 
