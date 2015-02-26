@@ -2,10 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:my="clr-namespace:CustomTabTest.Views"
-        Title="MainWindow" Height="300" Width="525"
-        DataContext="{Binding Source={StaticResource Locator}, Path=MainPageViewModel}">
+        Title="MainWindow" Height="300" Width="525">
+        <!-- Remove binding to MainPageViewModel -->
     <StackPanel>
-        <TextBlock Text="{Binding Path=BannerText}" FontFamily="Verdana" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+        <TextBlock Text="Banner" FontFamily="Verdana" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
         <!--<my:CustomerView Loaded="CustomerView_Loaded" />-->
         <my:CustomTabUserControl />
     </StackPanel>
