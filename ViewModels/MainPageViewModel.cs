@@ -20,42 +20,62 @@ namespace CustomTabTest
     /// Use the <strong>mvvmprop</strong> snippet to add bindable properties to this ViewModel.
     /// </para>
     /// </summary>
-    public class MainPageViewModel : ViewModelDetailBase<MainPageViewModel, CustomTab>
+    public class MainPageViewModel : ViewModelDetailBase<MainPageViewModel, CustomTabsConfigModel>
     {
         #region Initialization and Cleanup
 
         // Default ctor
         public MainPageViewModel() 
         {
+            CustomTabsInfo = new CustomTabsConfigModel();
+            CustomTabsInfo.ConfigModelName = "New Test Model";
+
             CustomTab _customTab = new CustomTab();
-            _customTab.Header = "Test Tab";
+            _customTab.Header = "Test 1 Tab";
             _customTab.TabIsVisible = true;
-            _customTab.TaskCollection = new TaskCollection();
+            //_customTab.TaskCollection = new TaskCollection();
 
-            UtilitiesTask _task = new UtilitiesTask();
-            _task.TaskTitle = "Task 1";
-            _task.ButtonLabel = "Task 1 Button";
-            _task.ButtonType = "SQL";
+            //UtilitiesTask _task = new UtilitiesTask();
+            //_task.TaskTitle = "Task 1";
+            //_task.ButtonLabel = "Task 1 Button";
+            //_task.ButtonType = "SQL";
 
-            _customTab.TaskCollection.TaskList.Add(_task);
+            //_customTab.TaskCollection.TaskList.Add(_task);
 
-            _task = new UtilitiesTask();
-            _task.TaskTitle = "Task 2";
-            _task.ButtonLabel = "Task 2 Button";
-            _task.ButtonType = "Crystal";
+            //_task = new UtilitiesTask();
+            //_task.TaskTitle = "Task 2";
+            //_task.ButtonLabel = "Task 2 Button";
+            //_task.ButtonType = "Crystal";
 
-            _customTab.TaskCollection.TaskList.Add(_task);
+            //_customTab.TaskCollection.TaskList.Add(_task);
+            CustomTabsInfo.CustomTabCollection.Add(_customTab);
 
-            CustomTabCollection = _customTab;
+            _customTab = new CustomTab();
+            _customTab.Header = "Test 2 Tab";
+            _customTab.TabIsVisible = true;
+            //_task = new UtilitiesTask();
+            //_customTab.TaskCollection = new TaskCollection(); 
+            //_customTab.TaskCollection.TaskList.Add(_task);
+            CustomTabsInfo.CustomTabCollection.Add(_customTab);
 
-            Model = CustomTabCollection;
+
+            _customTab = new CustomTab();
+            _customTab.Header = "Test 3 Tab";
+            _customTab.TabIsVisible = true;
+            //_task = new UtilitiesTask();
+            //_customTab.TaskCollection = new TaskCollection(); 
+            //_customTab.TaskCollection.TaskList.Add(_task);
+            CustomTabsInfo.CustomTabCollection.Add(_customTab);
+
+
+            this.Model = CustomTabsInfo;
             BeginEdit();
 
             // Associate Header with IsDirty
-            //AssociateProperties(m => m.Header, vm => vm.IsDirty);
+            AssociateProperties(m => m.CustomTabCollection, vm => vm.IsDirty);
 
             // Associate with IsDirtyInfo (debugging)
-            //AssociateProperties(m => m.Header, vm => vm.IsDirtyInfo);
+            //AssociateProperties(m => m.CustomTabCollection, vm => vm.IsDirtyInfo);
             
             // Handle PropertyChanged event (debuggin)
             //Model.PropertyChanged += OnModelPropertyChanged;
@@ -80,8 +100,17 @@ namespace CustomTabTest
 
         #region Properties
 
-        // Add properties using the mvvmprop code snippet
-        public CustomTab CustomTabCollection { get; set; }
+        public CustomTabsConfigModel CustomTabsInfo 
+        {
+            get { return _CustomTabsInfo; }
+             set
+             {
+                 _CustomTabsInfo = value;
+                 NotifyPropertyChanged(m => m.CustomTabsInfo);
+             }
+         }
+        private CustomTabsConfigModel _CustomTabsInfo;
+
 
         // Wrap IsDirty (debugging)
         //public bool IsDirtyInfo
@@ -121,4 +150,7 @@ namespace CustomTabTest
 
         #endregion
     }
+
+
+
 }

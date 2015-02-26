@@ -14,6 +14,113 @@ using System.Xml.Serialization;
 
 namespace CustomTabTest.Models
 {
+    public class CustomTabsConfigModel : ModelBase<CustomTabsConfigModel>
+    {
+        #region Initialization & Cleanup
+
+        public override int GetHashCode()
+        {
+            return GetHashCode(this);
+        }
+
+        private int GetHashCode(object item, params string[] excludeProps)
+        {
+            int hashCode = 0;
+            foreach (var prop in item.GetType().GetProperties())
+            {
+                if (!excludeProps.Contains(prop.Name))
+                {
+                    object propVal = prop.GetValue(item, null);
+                    if (propVal != null)
+                    {
+                        hashCode = hashCode ^ propVal.GetHashCode();
+                    }
+                }
+            }
+            return hashCode;
+        }
+        
+        /// <summary>
+        /// Create a configuration object bound to "CustomTabs.xml" 
+        /// contained in [CommonApplicationData]\[Manufacturer]\[ProductName]
+        /// </summary>
+        public CustomTabsConfigModel()
+        {
+            CustomTabCollection = new CustomTabCollection();
+        }
+
+        #endregion Initialization & Cleanup
+
+
+        #region Properties
+
+        public string ConfigModelName
+        {
+            get { return _ConfigModelName; }
+            set
+            {
+                _ConfigModelName = value;
+                NotifyPropertyChanged(m => m.ConfigModelName);
+            }
+        }
+        private string _ConfigModelName;
+
+
+        /// <summary>
+        /// Collection of custom tabs
+        /// </summary>
+         public CustomTabCollection CustomTabCollection
+         {
+             get { return _CustomTabCollection; }
+             set
+             {
+                 _CustomTabCollection = value;
+                 NotifyPropertyChanged(m => m.CustomTabCollection);
+             }
+         }
+         private CustomTabCollection _CustomTabCollection;
+
+
+        #endregion Properties
+    }
+
+
+    // ####################################################
+    // CustomTabCollection Model
+    // ####################################################
+    public class CustomTabCollection : ObservableCollection<CustomTab>
+    {
+        #region Initialization & Cleanup
+        // Overriding the GetHashCode prevents the Clone operation from marking an 
+        // object Dirty when it is first cloned
+        // Calculates object hash code based on property hash codes
+        public override int GetHashCode()
+        {
+            int hashCode = 0;
+            foreach (var item in Items)
+            {
+                if (item != null)
+                {
+                    // Aggregate item hash codes
+                    hashCode = hashCode ^ item.GetHashCode();
+                }
+            }
+            return hashCode;
+        }
+
+        public CustomTabCollection()
+        {
+            //TaskList = new List<UtilitiesTask>();
+        }
+
+        #endregion Initialization & Cleanup
+
+        //    //[XmlArray("Tasks")]
+        //    [XmlElement("Task", typeof(UtilitiesTask))]
+        //    public List<UtilitiesTask> TaskList { get; set; }
+    }
+
+
     // ####################################################
     // CustomTab Model
     // ####################################################
@@ -81,7 +188,7 @@ namespace CustomTabTest.Models
 
 
         //public List<UtilitiesTask> TaskCollection { get; set; }
-        public TaskCollection TaskCollection { get; set; }
+        //public TaskCollection TaskCollection { get; set; }
 
 
         #endregion Properties
@@ -92,7 +199,7 @@ namespace CustomTabTest.Models
     // ####################################################
     // TaskCollection Model
     // ####################################################
-    public class TaskCollection : ModelBase<TaskCollection>   // : ModelBaseExtended, IIsDirty
+    public class TaskCollection : ObservableCollection<UtilitiesTask>
     {
     #region Initialization & Cleanup
         // Overriding the GetHashCode prevents the Clone operation from marking an 

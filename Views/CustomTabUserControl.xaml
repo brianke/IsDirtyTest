@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:m="clr-namespace:CustomTabTest.Models"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" 
@@ -10,40 +11,38 @@
              DataContext="{Binding Source={StaticResource Locator}, Path=MainPageViewModel}">
 
     <StackPanel>
-        <Grid x:Name="LayoutRoot" Background="White" Height="150" Width="300">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <!--<StackPanel Orientation="Horizontal">
             <Label Content="Header:" Grid.Row="0" />
-            <TextBox Grid.Row="0" Grid.Column="1" Height="30"
-                Text="{Binding Model.Header, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Height="30"
+                                Width="100"
+                                Text="{Binding Model.CustomTabCollection[1].Header, UpdateSourceTrigger=PropertyChanged}" />
 
-            <CheckBox Grid.Row="1" Grid.Column="1" Height="30"
-                Content="Tab Is Visible"
-                IsChecked="{Binding Model.TabIsVisible, UpdateSourceTrigger=PropertyChanged}" />
+            <CheckBox Height="30"
+                                Content="Tab Is Visible"
+                                IsChecked="{Binding Model.CustomTabCollection[1].TabIsVisible, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>-->
 
-        </Grid>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="ConfigModelName: " />
+            <TextBox Text="{Binding Model.ConfigModelName, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <ListView Name="CustomTabsListView" 
+                  ItemsSource="{Binding Model.CustomTabCollection, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type m:CustomTab}">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Tab Name:" Grid.Row="0" />
+                        <TextBox Height="30"
+                                 Width="100"
+                                 Text="{Binding Header, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <TextBlock Text="{Binding IsDirty, StringFormat=IsDirty {0}, NotifyOnSourceUpdated=True}" 
                    FontSize="20" FontWeight="Bold" 
                    HorizontalAlignment="Center" />
 
-        <!-- Manually fire PropertyChanged event (debuggin) -->
-        <!--<Button Name="FireEventButton" Width="200" Content="Fire PropertyChanged Event">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Click">
-                    <ei:CallMethodAction 
-                            TargetObject="{Binding}"
-                            MethodName="FirePropertyChanged"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Button>-->
     </StackPanel>
 </UserControl>
