@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Windows;
-using System.Threading;
-using System.Collections.ObjectModel;
-
-// Toolkit namespace
-using SimpleMvvmToolkit;
-
-// Toolkit extension methods
-using SimpleMvvmToolkit.ModelExtensions;
 using CustomTabTest.Models;
-using System.Collections.Generic;
-using System.ComponentModel;
+using SimpleMvvmToolkit;
 
 namespace CustomTabTest
 {
@@ -71,13 +61,11 @@ namespace CustomTabTest
             this.Model = CustomTabsInfo;
             BeginEdit();
 
-            // Associate Header with IsDirty
-            AssociateProperties(m => m.CustomTabCollection, vm => vm.IsDirty);
-
-            // Associate with IsDirtyInfo (debugging)
-            //AssociateProperties(m => m.CustomTabCollection, vm => vm.IsDirtyInfo);
+            // DEBUG: Associate with IsDirtyInfo
+            AssociateProperties(m => m.ConfigModelName, vm => vm.IsDirtyInfo);
+            AssociateProperties(m => m.CustomTabCollection, vm => vm.IsDirtyInfo);
             
-            // Handle PropertyChanged event (debuggin)
+            // Handle PropertyChanged event (debugging)
             //Model.PropertyChanged += OnModelPropertyChanged;
         }
 
@@ -112,14 +100,15 @@ namespace CustomTabTest
         private CustomTabsConfigModel _CustomTabsInfo;
 
 
-        // Wrap IsDirty (debugging)
-        //public bool IsDirtyInfo
-        //{
-        //    get
-        //    {
-        //        return IsDirty;
-        //    }
-        //}
+        // DEBUG: Wrap IsDirty
+        public bool IsDirtyInfo
+        {
+            get
+            {
+                // Set breakpoint here
+                return IsDirty;
+            }
+        }
 
         #endregion
 

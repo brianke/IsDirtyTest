@@ -78,6 +78,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\CustomTab.cs" />
+    <Compile Include="Models\CustomTabCollection.cs" />
+    <Compile Include="Models\CustomTabsConfigModel.cs" />
+    <Compile Include="Models\UtilitiesTask.cs" />
     <Compile Include="Views\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
